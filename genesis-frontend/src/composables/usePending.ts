@@ -1,4 +1,4 @@
-import { readonly, ref } from 'vue'
+import { ref } from 'vue'
 
 export const usePending = () => {
   const status = ref(false)

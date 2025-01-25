@@ -1,6 +1,6 @@
 import { readonly, ref, shallowRef } from "vue";
 import { defineStore } from "pinia";
-import { usePending } from "@/composebles/usePending";
+import { usePending } from "@/composables/usePending";
 import { TMessageType, useAlert } from "./useAlert";
 
 export type TEntity = "leads" | "contacts" | "companies";
