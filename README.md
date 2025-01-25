@@ -1,7 +1,8 @@
 # Конфигурация
 
 ### genesis-backend/.env
-```REFRESH_TOKEN_URL=https://test/get-token.php
+```
+REFRESH_TOKEN_URL=https://test/get-token.php
 AMO_BASE_URL=https://test.amocrm.ru
 AMO_CLIENT_ID=123
 ```
@@ -14,12 +15,14 @@ AMO_CLIENT_ID=123
 
 # Запуск
 
-```cd genesis-frontend
+```
+cd genesis-frontend
 npm install
 npm run dev
 ```
 
-```cd genesis-backend
+```
+cd genesis-backend
 npm install
 npm run start:dev
 ```
