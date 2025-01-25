@@ -1,0 +1,44 @@
+:root {
+  --color-background: var(--vt-c-white);
+
+  --color-border-normal: #999999;
+  --color-border-normal-mute: #cccccc;
+  --color-border-special: #4077d6;
+
+  --color-text-normal: #000000;
+  --color-text-normal-mute: #333333;
+  --color-text-special: #ffffff;
+
+  --color-background-normal: #ffffff;
+  --color-background-normal-mute: #f8f8f8;
+  --color-background-special: #4c8bf7;
+  --color-background-special-mute: #4077d6;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+
+  color: var(--color-text-normal);
+  background: var(--color-background-normal);
+
+  line-height: 1.6;
+  font-family: "PT Sans", Arial, sans-serif;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
