@@ -47,7 +47,7 @@ const model = defineModel<string | undefined>();
 
 // преобразовать пропсы в массив кортежей [ключ, значение]
 // у массивов более строгий порядок и проще узнавать длину и получать элемент по индексу
-let options = computed(() => {
+const options = computed(() => {
   if (Array.isArray(props.options)) {
     return props.options.map((option): [string, string] => {
       if (Array.isArray(option)) {

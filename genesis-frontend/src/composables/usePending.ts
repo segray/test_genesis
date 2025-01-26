@@ -9,10 +9,10 @@ export const usePending = () => {
     })
   }
 
-  type TFn = (...args: any[]) => any
+  type TFn = (...args: unknown[]) => unknown
   const wrapCallback = <T extends TFn>(fn: T): TFn => {
     status.value = true
-    return (...args: Parameters<T>): ReturnType<T> => {
+    return (...args: unknown[]): unknown => {
       status.value = false
       return fn(...args);
     }

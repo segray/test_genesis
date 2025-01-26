@@ -1,12 +1,12 @@
 <template>
   <button class="button" :disabled="props.disabled || props.loading">
-    <Spinner v-if="props.loading" class="spinner" />
+    <AmoSpinner v-if="props.loading" class="spinner" />
     <slot v-else></slot>
   </button>
 </template>
 
 <script setup lang="ts">
-import Spinner from "./Spinner.vue";
+import AmoSpinner from "./AmoSpinner.vue";
 
 const props = defineProps<{
   loading?: boolean;

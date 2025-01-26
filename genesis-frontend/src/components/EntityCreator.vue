@@ -1,12 +1,12 @@
 <template>
   <div class="container">
     <div>
-      <Select :options="entityNames" label="Сущность" v-model="entityModel" />
-      <Button
+      <AmoSelect :options="entityNames" label="Сущность" v-model="entityModel" />
+      <AmoButton
         :disabled="entityModel === undefined"
         :loading="entityStore.pending"
         @click="handleClickCreate"
-        >Создать</Button
+        >Создать</AmoButton
       >
     </div>
     <ul class="entity-list">
@@ -27,8 +27,8 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import Select from "./Select.vue";
-import Button from "./Button.vue";
+import AmoSelect from "./AmoSelect.vue";
+import AmoButton from "./AmoButton.vue";
 import { useEntityStore, entityNames } from "@/stores/entities";
 import type { TEntity } from "@/stores/entities";
 

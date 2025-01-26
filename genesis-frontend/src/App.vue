@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Alert from "./components/Alert.vue";
+import AmoAlert from "./components/AmoAlert.vue";
 import EntityCreator from "./components/EntityCreator.vue";
 </script>
 
 <template>
-  <Alert />
+  <AmoAlert />
   <main>
     <EntityCreator />
   </main>

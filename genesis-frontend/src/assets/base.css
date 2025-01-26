@@ -1,6 +1,4 @@
 :root {
-  --color-background: var(--vt-c-white);
-
   --color-border-normal: #999999;
   --color-border-normal-mute: #cccccc;
   --color-border-special: #4077d6;
