@@ -121,6 +121,9 @@ const handleKeyDown = (event: KeyboardEvent) => {
     focusedIndex.value = (focusedIndex.value + 1) % options.value.length;
   } else if (event.key === "ArrowUp") {
     focusedIndex.value = (focusedIndex.value - 1) % options.value.length;
+    if (focusedIndex.value < 0) {
+      focusedIndex.value += options.value.length;
+    }
   }
 };
 </script>
