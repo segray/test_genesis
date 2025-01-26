@@ -3,9 +3,7 @@ import { AmoEntityService } from './amo-entity.service';
 
 @Controller('entity')
 export class AmoEntityController {
-  constructor(
-    private readonly amoEntityService: AmoEntityService,
-  ) {}
+  constructor(private readonly amoEntityService: AmoEntityService) {}
 
   @Post('companies')
   createCompany() {

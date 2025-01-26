@@ -17,7 +17,7 @@ import { AmoEntityController } from './amo-entity/amo-entity.controller';
         baseURL: configService.get<string>('AMO_BASE_URL'),
         headers: {
           'Content-Type': 'application/json',
-        }
+        },
       }),
     }),
   ],

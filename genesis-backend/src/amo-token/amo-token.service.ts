@@ -2,6 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios, { AxiosInstance } from 'axios';
 
+type TTokenResponse = {
+  access_token: string;
+};
+
 @Injectable()
 export class AmoTokenService {
   // временно хранится в памяти
@@ -27,8 +31,8 @@ export class AmoTokenService {
   refresh(hostname: string): Promise<string> {
     return (AmoTokenService.tokenDb[hostname] = AmoTokenService.axiosRefresh
       .get('')
-      .then((res) => {
-        return res.data.access_token as string;
+      .then((res: { data: TTokenResponse }) => {
+        return res.data.access_token;
       }));
   }
 

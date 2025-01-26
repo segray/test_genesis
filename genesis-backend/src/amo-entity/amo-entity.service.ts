@@ -5,7 +5,7 @@ import {
   ServiceUnavailableException,
 } from '@nestjs/common';
 import { catchError, map } from 'rxjs';
-import { TAmoEntity } from './amo-entity.type';
+import { TAmoEntity, TAmoResponse } from './amo-entity.type';
 
 @Injectable()
 export class AmoEntityService {
@@ -15,8 +15,8 @@ export class AmoEntityService {
 
   create(entity: TAmoEntity) {
     return this.httpService.post(`/api/v4/${entity}`, [{}]).pipe(
-      map(({ data }) => {
-        const id: number = data?._embedded[entity]?.[0]?.id;
+      map(({ data }: { data: TAmoResponse }) => {
+        const id: number = data?._embedded?.[entity]?.[0]?.id ?? 0;
         return {
           id,
           entity,

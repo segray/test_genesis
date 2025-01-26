@@ -36,7 +36,7 @@ export class MockController {
   refreshToken() {
     return {
       access_token: 'ny9mrOihjFw',
-      base_domain: "---",
+      base_domain: '---',
     };
   }
 }
