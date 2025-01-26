@@ -30,6 +30,8 @@ const props = defineProps<{
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  border-radius: 4px;
 }
 
 .button:disabled:not(:has(.spinner)) {
