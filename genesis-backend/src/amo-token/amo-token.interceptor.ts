@@ -1,10 +1,11 @@
 import { HttpService } from '@nestjs/axios';
 import { AmoTokenService } from './amo-token.service';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { ServiceUnavailableException } from '@nestjs/common';
+import { AmoEntityError } from 'src/amo-entity/amo-entity.filter';
 
 type TConfigWithSent = InternalAxiosRequestConfig & { sent: boolean };
 
+// добавляем access токен во все запросы, перезапрашиваем токен, в случай ошибки авторизации
 export const amoTokenInterceptor = (
   httpService: HttpService,
   amoTokenService: AmoTokenService,
@@ -38,6 +39,7 @@ export const amoTokenInterceptor = (
       const config = error.config;
 
       if (error.response && error.response.status === 401 && !config.sent) {
+        // не делаем повторные запросы если новые токены не проходят
         config.sent = true;
 
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -45,7 +47,7 @@ export const amoTokenInterceptor = (
         return axiosAccess(await withAccessToken(config));
       }
 
-      return Promise.reject(new ServiceUnavailableException());
+      return Promise.reject(new AmoEntityError('', error.response.status));
     },
   );
 

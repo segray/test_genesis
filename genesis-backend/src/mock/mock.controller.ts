@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, NotAcceptableException, Post } from '@nestjs/common';
 import { TAmoEntity } from 'src/amo-entity/amo-entity.type';
 
 @Controller('api/v4')
@@ -29,6 +29,7 @@ export class MockController {
 
   @Post('companies')
   createCompany() {
+    throw new NotAcceptableException();
     return this.create('companies');
   }
 

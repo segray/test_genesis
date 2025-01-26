@@ -1,7 +1,9 @@
-import { Controller, Post } from '@nestjs/common';
+import { Controller, Post, UseFilters } from '@nestjs/common';
 import { AmoEntityService } from './amo-entity.service';
+import { AmoEntityFilter } from './amo-entity.filter';
 
 @Controller('entity')
+@UseFilters(new AmoEntityFilter())
 export class AmoEntityController {
   constructor(private readonly amoEntityService: AmoEntityService) {}
 

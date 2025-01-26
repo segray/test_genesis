@@ -25,6 +25,7 @@ import { AmoEntityController } from './amo-entity/amo-entity.controller';
   providers: [
     AmoEntityService,
     AmoTokenService,
+    // отдельный провайдер для авторизованных запросов к амо
     {
       provide: 'AmoRestHttp',
       inject: [HttpService, AmoTokenService],

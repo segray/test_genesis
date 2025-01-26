@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosError, AxiosInstance } from 'axios';
+import { AmoEntityError } from 'src/amo-entity/amo-entity.filter';
 
 type TTokenResponse = {
   access_token: string;
@@ -9,8 +10,10 @@ type TTokenResponse = {
 @Injectable()
 export class AmoTokenService {
   // временно хранится в памяти
-  static tokenDb: Record<string, Promise<string> | undefined> = {};
-  static axiosRefresh: AxiosInstance;
+  private static tokenDb: Record<string, Promise<string> | undefined> = {};
+
+  // отдельный инстанс для обновления токена
+  private static axiosRefresh: AxiosInstance;
 
   constructor(configService: ConfigService) {
     if (!AmoTokenService.axiosRefresh) {
@@ -29,10 +32,14 @@ export class AmoTokenService {
   }
 
   refresh(hostname: string): Promise<string> {
+    // в tokenDb перезаписываем промисы, чтобы другие таски не ломились обновлять одновременно
     return (AmoTokenService.tokenDb[hostname] = AmoTokenService.axiosRefresh
       .get('')
       .then((res: { data: TTokenResponse }) => {
         return res.data.access_token;
+      })
+      .catch((error: AxiosError) => {
+        throw AmoEntityError.fromAxoisError(error);
       }));
   }
 

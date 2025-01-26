@@ -1,10 +1,6 @@
 import { HttpService } from '@nestjs/axios';
-import {
-  Inject,
-  Injectable,
-  ServiceUnavailableException,
-} from '@nestjs/common';
-import { catchError, map } from 'rxjs';
+import { Inject, Injectable } from '@nestjs/common';
+import { map } from 'rxjs';
 import { TAmoEntity, TAmoResponse } from './amo-entity.type';
 
 @Injectable()
@@ -14,6 +10,7 @@ export class AmoEntityService {
   ) {}
 
   create(entity: TAmoEntity) {
+    // создаем одну пустую сущность
     return this.httpService.post(`/api/v4/${entity}`, [{}]).pipe(
       map(({ data }: { data: TAmoResponse }) => {
         const id: number = data?._embedded?.[entity]?.[0]?.id ?? 0;
@@ -25,9 +22,6 @@ export class AmoEntityService {
             this.httpService.axiosRef.defaults.baseURL,
           ).href,
         };
-      }),
-      catchError(() => {
-        throw new ServiceUnavailableException();
       }),
     );
   }
