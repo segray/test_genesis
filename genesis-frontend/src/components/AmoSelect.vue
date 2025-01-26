@@ -30,7 +30,7 @@
         {{ title }}
       </li>
     </ul>
-    <input type="hidden" :name="props.name" :value="model" />
+    <input type="hidden" :name="props.name || ''" :value="model" />
   </div>
 </template>
 
@@ -102,11 +102,11 @@ const focusOption = (index: number) => {
   focusedIndex.value = index;
 };
 
-const currentOption = computed(() =>
-  selectedIndex.value >= 0 ? options.value[selectedIndex.value] : null
+const selectedOption = computed(() =>
+  selectedIndex.value >= 0 ? options.value[selectedIndex.value] : undefined
 );
 
-const selectedTitle = computed(() => currentOption.value?.[1]);
+const selectedTitle = computed(() => selectedOption.value?.[1]);
 
 const handleKeyDown = (event: KeyboardEvent) => {
   if (event.key === "Escape") {
