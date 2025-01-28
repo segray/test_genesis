@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
+import { toReadonly } from "@/utils/toReadonly";
 
 export const enum TMessageType {
   success = "success",
@@ -8,7 +9,7 @@ export const enum TMessageType {
   info = "info",
 }
 
-export const useAlert = defineStore("alert", () => {
+export const useAlertStore = defineStore("alert", () => {
   const currentMessage = ref("");
   const currentMessageType = ref<TMessageType>();
   const currentMessageDate = ref<Date>();
@@ -19,10 +20,10 @@ export const useAlert = defineStore("alert", () => {
     currentMessageDate.value = new Date();
   };
 
-  return {
+  return toReadonly({
     currentMessage,
     currentMessageType,
     currentMessageDate,
     send,
-  } as const;
+  });
 });

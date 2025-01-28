@@ -1,7 +1,8 @@
-import { readonly, ref } from "vue";
+import { ref } from "vue";
 import { defineStore } from "pinia";
 import { usePending } from "@/composables/usePending";
-import { TMessageType, useAlert } from "./useAlert";
+import { TMessageType, useAlertStore } from "./useAlert";
+import { toReadonly } from "@/utils/toReadonly";
 
 export type TEntity = "leads" | "contacts" | "companies";
 export type TEntityItem = {
@@ -16,10 +17,10 @@ export const entityNames: Record<TEntity, string> = {
   companies: "Компания",
 } as const;
 
-export const useEntityStore = defineStore("entities", () => {
+export const useEntitiesStore = defineStore("entities", () => {
   const entites = ref<TEntityItem[]>([]);
   const pending = usePending();
-  const alertStore = useAlert();
+  const alertStore = useAlertStore();
 
   const create = (type: TEntity) => {
     return pending
@@ -35,9 +36,9 @@ export const useEntityStore = defineStore("entities", () => {
       });
   };
 
-  return {
-    entites: readonly(entites),
+  return toReadonly({
+    entites,
     create,
     pending: pending.status,
-  } as const;
+  });
 });

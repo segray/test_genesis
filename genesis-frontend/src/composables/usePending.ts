@@ -1,3 +1,4 @@
+import { toReadonly } from '@/utils/toReadonly'
 import { ref } from 'vue'
 
 export const usePending = () => {
@@ -18,5 +19,5 @@ export const usePending = () => {
     }
   }
 
-  return { status, wrap, wrapCallback } as const
+  return toReadonly({ status, wrap, wrapCallback })
 }

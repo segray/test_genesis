@@ -29,11 +29,11 @@
 import { ref } from "vue";
 import AmoSelect from "./AmoSelect.vue";
 import AmoButton from "./AmoButton.vue";
-import { useEntityStore, entityNames } from "@/stores/entities";
-import type { TEntity } from "@/stores/entities";
+import { useEntitiesStore, entityNames } from "@/stores/useEntities";
+import type { TEntity } from "@/stores/useEntities";
 
 const entityModel = ref<TEntity | undefined>();
-const entityStore = useEntityStore();
+const entityStore = useEntitiesStore();
 
 const handleClickCreate = () => {
   if (entityModel.value !== undefined && !entityStore.pending) {

@@ -10,10 +10,10 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { useAlert } from "../stores/useAlert";
+import { useAlertStore } from "../stores/useAlert";
 
 const isShow = ref(false);
-const alertStore = useAlert();
+const alertStore = useAlertStore();
 
 let timeout: number = 0;
 
