@@ -4,21 +4,21 @@
       <AmoSelect :options="entityNames" label="Сущность" v-model="entityModel" />
       <AmoButton
         :disabled="entityModel === undefined"
-        :loading="entityStore.pending"
+        :loading="entitiesStore.pending"
         @click="handleClickCreate"
         >Создать</AmoButton
       >
     </div>
     <ul class="entity-list">
       <li
-        v-for="entity in entityStore.entites"
+        v-for="item in entitiesStore.data"
         class="entity-list-item"
-        :key="entity.id"
-        :data-type="entity.entity"
+        :key="item.id"
+        :data-type="item.entity"
       >
-        <div class="entity-list-item__name">{{ entityNames[entity.entity] }}</div>
+        <div class="entity-list-item__name">{{ entityNames[item.entity] }}</div>
         <div class="entity-list-item__data">
-          <a :href="entity.href">{{ entity.id }}</a>
+          <a :href="item.href">{{ item.id }}</a>
         </div>
       </li>
     </ul>
@@ -33,11 +33,11 @@ import { useEntitiesStore, entityNames } from "@/stores/useEntities";
 import type { TEntity } from "@/stores/useEntities";
 
 const entityModel = ref<TEntity | undefined>();
-const entityStore = useEntitiesStore();
+const entitiesStore = useEntitiesStore();
 
 const handleClickCreate = () => {
-  if (entityModel.value !== undefined && !entityStore.pending) {
-    entityStore.create(entityModel.value);
+  if (entityModel.value !== undefined && !entitiesStore.pending) {
+    entitiesStore.create(entityModel.value);
   }
 };
 </script>

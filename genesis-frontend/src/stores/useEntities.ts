@@ -18,7 +18,7 @@ export const entityNames: Record<TEntity, string> = {
 } as const;
 
 export const useEntitiesStore = defineStore("entities", () => {
-  const entites = ref<TEntityItem[]>([]);
+  const data = ref<TEntityItem[]>([]);
   const pending = usePending();
   const alertStore = useAlertStore();
 
@@ -27,17 +27,30 @@ export const useEntitiesStore = defineStore("entities", () => {
       .wrap(
         fetch(new URL("/entity/" + type, import.meta.env.VITE_API_URL), {
           method: "POST",
-        }).then((response) => response.json())
+        }).then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            return response.json().then((data) => Promise.reject(data));
+          }
+        })
       )
-      .then((data) => {
-        entites.value.push(data);
-      }).catch((error) => {
-        alertStore.send(`Сервис не доступен (${error.message})`, TMessageType.warning);
+      .then((response) => {
+        data.value.push(response);
+      })
+      .catch((error) => {
+        let message = error?.message || error?.status || "";
+        if (message) {
+          message = ` (${message})`;
+        }
+        message = "Сервис не доступен" + message;
+
+        alertStore.send(message, TMessageType.warning);
       });
   };
 
   return toReadonly({
-    entites,
+    data,
     create,
     pending: pending.status,
   });
